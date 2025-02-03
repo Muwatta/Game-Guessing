@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+.container {
+  margin-top: 50px;
+  border: 2px solid #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+#colorBox {
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+  border: 3px solid #000;
+}
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.colorOption {
+  width: 80px;
+  height: 80px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.colorOption:hover {
+  transform: scale(1.1);
+}
+#gameStatus {
+  font-size: 18px;
+  margin-top: 10px;
+}
+#score {
+  font-size: 20px;
+  font-weight: bold;
+}
+#newGameButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#newGameButton:hover {
+  background-color: #218838;
+}
