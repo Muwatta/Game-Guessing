@@ -2,14 +2,18 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="shortcut icon" href="image/CG.jpg" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="image/CG.jpg" type="image/x-icon" />
   <title>Game Guessing</title>
 </head>
 
 <body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen">
+    <p>Loading...</p>
+  </div>
 
   <div class="container">
     <h1 data-testid="gameInstructions">Guess the correct color!</h1>
@@ -25,9 +29,11 @@
     <p id="gameStatus" data-testid="gameStatus"></p>
     <p>Score: <span id="score" data-testid="score">0</span></p>
     <button id="newGameButton" data-testid="newGameButton">New Game</button>
+    <button id="hintButton">Use Hint</button>
+    <div id="hintsLeft">Hints Left: 2</div>
+    <p>Time Left: <span id="timer">90</span> seconds</p>
+    <p id="highScore">High Score: 0</p>
   </div>
-
-
 
   <script src="script.js"></script>
 </body>
