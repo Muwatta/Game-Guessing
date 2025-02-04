@@ -45,16 +45,13 @@ const loadingScreen = document.getElementById('loadingScreen');
 const hintsLeftElement = document.getElementById('hintsLeft');
 const hintButton = document.getElementById('hintButton');
 
-// Start a new game, regardless of whether one is in progress.
 function startGame() {
-  // Reset game state regardless of current state.
   clearInterval(timer);
   gameInProgress = false;
   wrongGuesses = 0;
   hintsLeft = 2;
   hintUsed = false;
 
-  // Show loading screen then initialize game
   loadingScreen.style.display = 'flex';
   setTimeout(() => {
     loadingScreen.style.display = 'none';
@@ -73,7 +70,6 @@ function initializeGame() {
   hintButton.disabled = false;
 
   setNewColors();
-  // Enable all color option buttons and reset styling.
   colorOptions.forEach(button => {
     button.disabled = false;
     button.style.opacity = '1';
@@ -88,7 +84,6 @@ function setNewColors() {
   targetColor = randomSet.colors[0];
   colorBoxElement.style.backgroundColor = targetColor;
 
-  // Shuffle the colors in the set.
   let shuffledColors = randomSet.colors.sort(() => Math.random() - 0.5);
   colorOptions.forEach((button, index) => {
     button.style.backgroundColor = shuffledColors[index];
@@ -113,7 +108,6 @@ function checkAnswer(selectedColor) {
     wrongGuesses++;
     gameStatusElement.textContent = 'Wrong Guess!';
     gameStatusElement.style.color = 'red';
-    // We no longer stop the game based on wrong guesses.
   }
 }
 
@@ -142,16 +136,13 @@ function saveHighScore() {
   }
 }
 
-// Updated hint function: When hint is used, disable all buttons except the one with the correct color.
 function useHint() {
   if (hintsLeft > 0) {
     hintsLeft--;
     hintsLeftElement.textContent = `Hints Left: ${hintsLeft}`;
 
-    // Disable all color buttons except the one with the correct color.
     colorOptions.forEach(button => {
       if (button.dataset.color === targetColor) {
-        // Highlight the correct button (optional)
         button.disabled = false;
         button.style.border = '3px solid green';
         button.style.opacity = '1';
