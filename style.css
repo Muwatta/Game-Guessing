@@ -1,22 +1,27 @@
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  padding: 10px;
 }
 
+/* Container */
 .container {
   background-color: #fff;
   padding: 20px;
   text-align: center;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 100%;
+  max-width: 400px; /* Limits container width on larger screens */
 }
 
+/* Color Box */
 #colorBox {
   width: 100px;
   height: 100px;
@@ -24,12 +29,14 @@ body {
   border: 2px solid #ccc;
 }
 
+/* Options Grid */
 .options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
+/* Buttons */
 button {
   padding: 10px;
   font-size: 16px;
@@ -53,8 +60,10 @@ button:hover {
   color: black;
 }
 
+/* Paragraphs */
 p {
   font-size: 16px;
+  margin: 10px 0;
 }
 
 #gameStatus {
@@ -118,5 +127,34 @@ p {
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  #colorBox {
+    width: 80px;
+    height: 80px;
+    margin: 15px auto;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  #timer,
+  #highScore,
+  #hintsLeft {
+    font-size: 16px;
   }
 }
