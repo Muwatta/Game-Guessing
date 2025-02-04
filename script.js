@@ -32,8 +32,8 @@ let timer;
 let timeLeft = 90;
 let gameInProgress = false;
 let wrongGuesses = 0;
-let gameOverTriggered = false;
 let hintsLeft = 2;
+let hintUsed = false;
 
 const scoreElement = document.getElementById('score');
 const gameStatusElement = document.getElementById('gameStatus');
@@ -45,13 +45,16 @@ const loadingScreen = document.getElementById('loadingScreen');
 const hintsLeftElement = document.getElementById('hintsLeft');
 const hintButton = document.getElementById('hintButton');
 
+// Start a new game, regardless of whether one is in progress.
 function startGame() {
-  if (gameInProgress) return;
-
+  // Reset game state regardless of current state.
+  clearInterval(timer);
+  gameInProgress = false;
   wrongGuesses = 0;
-  gameOverTriggered = false;
   hintsLeft = 2;
+  hintUsed = false;
 
+  // Show loading screen then initialize game
   loadingScreen.style.display = 'flex';
   setTimeout(() => {
     loadingScreen.style.display = 'none';
@@ -70,9 +73,9 @@ function initializeGame() {
   hintButton.disabled = false;
 
   setNewColors();
+  // Enable all color option buttons and reset styling.
   colorOptions.forEach(button => {
     button.disabled = false;
-    // Reset styling in case a hint was used previously.
     button.style.opacity = '1';
     button.style.border = 'none';
   });
@@ -85,7 +88,7 @@ function setNewColors() {
   targetColor = randomSet.colors[0];
   colorBoxElement.style.backgroundColor = targetColor;
 
-  // Shuffle the colors
+  // Shuffle the colors in the set.
   let shuffledColors = randomSet.colors.sort(() => Math.random() - 0.5);
   colorOptions.forEach((button, index) => {
     button.style.backgroundColor = shuffledColors[index];
@@ -110,14 +113,7 @@ function checkAnswer(selectedColor) {
     wrongGuesses++;
     gameStatusElement.textContent = 'Wrong Guess!';
     gameStatusElement.style.color = 'red';
-
-    if (wrongGuesses >= 3 && !gameOverTriggered) {
-      gameOverTriggered = true;
-      gameInProgress = false;
-      gameStatusElement.textContent = 'Game Over!';
-      stopTimer();
-      saveHighScore();
-    }
+    // We no longer stop the game based on wrong guesses.
   }
 }
 
@@ -128,12 +124,9 @@ function startTimer() {
 
     if (timeLeft <= 0) {
       stopTimer();
-      if (!gameOverTriggered) {
-        gameOverTriggered = true;
-        gameInProgress = false;
-        gameStatusElement.textContent = "Time's Up!";
-        saveHighScore();
-      }
+      gameInProgress = false;
+      gameStatusElement.textContent = "Time's Up!";
+      saveHighScore();
     }
   }, 1000);
 }
@@ -155,12 +148,13 @@ function useHint() {
     hintsLeft--;
     hintsLeftElement.textContent = `Hints Left: ${hintsLeft}`;
 
-    // Disable all color buttons except the one with the correct color
+    // Disable all color buttons except the one with the correct color.
     colorOptions.forEach(button => {
       if (button.dataset.color === targetColor) {
+        // Highlight the correct button (optional)
         button.disabled = false;
-        // Optionally, highlight the correct button
         button.style.border = '3px solid green';
+        button.style.opacity = '1';
       } else {
         button.disabled = true;
         button.style.opacity = '0.3';
@@ -168,7 +162,7 @@ function useHint() {
     });
 
     gameStatusElement.textContent =
-      'Hint: Only the correct color is available.';
+      'Hint: Only the correct color button is enabled.';
 
     if (hintsLeft === 0) {
       hintButton.disabled = true;
